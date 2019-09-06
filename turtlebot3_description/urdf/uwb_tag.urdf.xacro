@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot name="uwb_tag" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:arg name="tag_id" default="0" />
+  <xacro:property name="tag_id" value="$(arg tag_id)" />
+   <link name="base_tag_${tag_id}"/>
+
+  <joint name="tag_${tag_id}" type="fixed">
+    <parent link="base_tag_${tag_id}"/>
+    <child link="link_tag_${tag_id}"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+  </joint>  
+  <link name="link_tag_${tag_id}">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.2 0.2 0.2" />
+      </geometry>
+    </visual>
+  </link>
+  <gazebo reference="link_tag_${tag_id}"></gazebo>
+  <gazebo>
+    <plugin name='libgtec_uwb_plugin' filename='libgtec_uwb_plugin.so'>
+      <update_rate>25</update_rate>
+      <nlosSoftWallWidth>0.60</nlosSoftWallWidth>
+      <tag_z_offset>0</tag_z_offset>
+      <tag_link>link_tag_${tag_id}</tag_link>
+      <anchor_prefix>uwb_anchor</anchor_prefix>
+      <all_los>false</all_los>
+      <tag_id>${tag_id}</tag_id>
+    </plugin>
+  </gazebo>
+</robot>
