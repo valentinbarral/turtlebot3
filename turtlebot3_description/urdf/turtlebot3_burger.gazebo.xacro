@@ -157,6 +157,7 @@
     <plugin name='libgtec_tag_pos_publisher_plugin' filename='libgtec_tag_pos_publisher_plugin.so'>
       <update_rate>40</update_rate>
       <tag_link>base_footprint</tag_link>
+      <z_offset>1</z_offset>
     </plugin>
 </gazebo> 
 
